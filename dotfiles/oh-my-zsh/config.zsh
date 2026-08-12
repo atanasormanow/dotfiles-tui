@@ -24,6 +24,7 @@ alias cal='cal -m3'
 alias nmrestart='systemctl restart NetworkManager.service'
 alias fm='ya'
 alias dot='~/Workspace/dotfiles-tui/target/release/dotfiles-tui'
+alias oc='opencode --port'
 
 # Functions:
 #-----------

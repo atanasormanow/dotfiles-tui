@@ -10,6 +10,12 @@ export ZSH="$HOME/.oh-my-zsh"
 export EDITOR=nvim
 export PAGER=bat
 
+############
+# SECTRETS #
+############
+export GITLAB_PERSONAL_ACCESS_TOKEN="glpat-nOv3MdPJNDScebTdJa67-m86MQp1OjhqCA.01.0y1jki5eu"
+export GITLAB_API_URL="https://gitlab.allterco.net/api/v4"
+
 ZSH_THEME="norm"
 
 # Disable "cd" when only directory name is typed
