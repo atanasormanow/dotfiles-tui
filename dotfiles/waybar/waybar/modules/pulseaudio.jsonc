@@ -20,7 +20,7 @@
 		// "align":
 		// "justify":
 		// "scroll-step":
-		"on-click": "hyprctl dispatch exec \"[float; center; size 800 600] kitty -e pulsemixer\"",
+		"on-click": "hyprctl dispatch 'hl.dsp.exec_cmd(\"kitty -e pulsemixer\", { float = true, center = true, size = \"800 600\" })'",
 		// "on-click-middle":
 		"on-click-right": "~/.config/waybar/scripts/volume output mute",
 		// "on-update":
