@@ -22,7 +22,7 @@ window_count=$(echo "$windows" | jq 'length')
 
 # Only handle the 2-window case
 if [[ "$window_count" -ne 2 ]]; then
-  hyprctl dispatch movewindow "$direction"
+  hyprctl dispatch "hl.dsp.window.move({ direction = \"$direction\" })"
   exit 0
 fi
 
@@ -54,7 +54,7 @@ is_bottom=$([[ "$active_y" -gt "$other_y" ]] && echo true || echo false)
 # Handle vertical split (left|right) with up/down movement
 if [[ "$is_vertical_split" == true ]] && [[ "$direction" == "u" || "$direction" == "d" ]]; then
   # Toggle to horizontal split
-  hyprctl dispatch layoutmsg togglesplit
+  hyprctl dispatch 'hl.dsp.layout("togglesplit")'
 
   # After toggle, we need to ensure the window ends up in the correct position
   # togglesplit keeps relative positions, so:
@@ -71,13 +71,13 @@ if [[ "$is_vertical_split" == true ]] && [[ "$direction" == "u" || "$direction" 
     # Want to go up (top position)
     if [[ "$is_right" == true ]]; then
       # Was right, now bottom, need to swap to be top
-      hyprctl dispatch layoutmsg swapsplit
+      hyprctl dispatch 'hl.dsp.layout("swapsplit")'
     fi
   else
     # Want to go down (bottom position)
     if [[ "$is_left" == true ]]; then
       # Was left, now top, need to swap to be bottom
-      hyprctl dispatch layoutmsg swapsplit
+      hyprctl dispatch 'hl.dsp.layout("swapsplit")'
     fi
   fi
   exit 0
@@ -87,11 +87,11 @@ fi
 if [[ "$is_horizontal_split" == true ]] && [[ "$direction" == "u" || "$direction" == "d" ]]; then
   # Check if movement makes sense (not already at the edge in that direction)
   if [[ "$direction" == "u" && "$is_bottom" == true ]] || [[ "$direction" == "d" && "$is_top" == true ]]; then
-    hyprctl dispatch layoutmsg swapsplit
+    hyprctl dispatch 'hl.dsp.layout("swapsplit")'
     exit 0 # Only exit after a successful swap
   fi
   # Fall through to movewindow if already at edge (allows cross-monitor movement)
 fi
 
 # Default: use normal movewindow for all other cases
-hyprctl dispatch movewindow "$direction"
+hyprctl dispatch "hl.dsp.window.move({ direction = \"$direction\" })"
